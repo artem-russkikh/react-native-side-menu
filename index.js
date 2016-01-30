@@ -122,7 +122,13 @@ class SideMenu extends Component {
         newLeft = this.menuPositionMultiplier() * this.props.openMenuOffset;
       }
 
-      this.state.left.setValue(newLeft);
+      if (this.props.edgeConstraint) {
+        if (newLeft > 0) {
+          this.state.left.setValue(newLeft);
+        }
+      } else {
+        this.state.left.setValue(newLeft);
+      }
     }
   }
 
@@ -235,6 +241,7 @@ SideMenu.propTypes = {
   onStartShouldSetResponderCapture: React.PropTypes.func,
   isOpen: React.PropTypes.bool,
   bounceBackOnOverdraw: React.PropTypes.bool,
+  edgeConstraint: React.PropTypes.bool,
 };
 
 SideMenu.defaultProps = {
@@ -263,6 +270,7 @@ SideMenu.defaultProps = {
   },
   isOpen: false,
   bounceBackOnOverdraw: true,
+  edgeConstraint: false,
 };
 
 module.exports = SideMenu;
